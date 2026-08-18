@@ -3,7 +3,7 @@ name = "MyFirstBackend"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Pedro-Miguel20",email = "pm987162@gmail.com"}
+    {name = "Pedro-Miguel20",email = ""}
 ]
 requires-python = ">=3.14"
 dependencies = [
