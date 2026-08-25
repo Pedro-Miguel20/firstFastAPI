@@ -2,9 +2,6 @@
 name = "MyFirstBackend"
 version = "0.1.0"
 description = ""
-authors = [
-    {name = "Pedro-Miguel20",email = ""}
-]
 requires-python = ">=3.14"
 dependencies = [
     "fastapi[standard] (>=0.141.1,<0.142.0)",
@@ -12,8 +9,11 @@ dependencies = [
     "alembic (>=1.19.1,<2.0.0)",
     "sqlalchemy (>=2.0.52,<3.0.0)",
     "psycopg[binary] (>=3.2,<4.0)",
+    "psycopg2 (>=2.9.12,<3.0.0)",
 ]
 
+[tool.poetry]
+package-mode = false
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
