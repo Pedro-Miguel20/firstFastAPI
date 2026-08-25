@@ -2,14 +2,14 @@
 name = "MyFirstBackend"
 version = "0.1.0"
 description = ""
-requires-python = ">=3.14"
+requires-python = ">=3.12,<3.14"
 dependencies = [
     "fastapi[standard] (>=0.141.1,<0.142.0)",
     "sqlmodel (>=0.0.39,<0.0.40)",
     "alembic (>=1.19.1,<2.0.0)",
     "sqlalchemy (>=2.0.52,<3.0.0)",
     "psycopg[binary] (>=3.2,<4.0)",
-    "psycopg2 (>=2.9.12,<3.0.0)",
+    "psycopg2-binary (>=2.9.12,<3.0.0)",
 ]
 
 [tool.poetry]
