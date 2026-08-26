@@ -1,13 +1,7 @@
-from database import engine
-    
+from fastapi import FastAPI
 
-def test_connection():
-    try:
-        # Tenta abrir uma conexão rápida com o banco
-        with engine.connect() as connection:
-            print("Successfully connected to the pgAdmin PostgreSQL database!")
-    except Exception as e:
-        print(f"Erro ao conectar ao banco de dados: {e}")
+app = FastAPI()
 
-if __name__ == "__main__":
-    test_connection()
+@app.get("/todo/{id}")
+async def users(id: int):
+    return {"id": 1, "title": "Estudar", "description": "Matemática", "date": "2026-08-30 04:05:06", "done": False}
