@@ -1,13 +1,20 @@
-from sqlalchemy import Column, DateTime, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict
 
-Base = declarative_base()
-metadata = Base.metadata
+class TodoCreate(BaseModel):
+    title: str
+    description: str | None = None
+    due_datetime: datetime
+    completed_at: datetime
+    done: bool = False
 
-class Todo(Base):
-    __tablename__ = "todo"
+class TodoResponse(BaseModel):
+    id: int
+    title: str
+    description: str
+    due_datetime: datetime
+    completed_at: datetime
+    done: bool
+    active: bool
 
-    id = Column(Integer, primary_key=True)
-    title = Column(String(40), unique=False)
-    description = Column(String(200), unique=False)
-    Date = Column(DateTime)
+    model_config = ConfigDict(from_attributes=True)
