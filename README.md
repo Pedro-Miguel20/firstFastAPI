@@ -77,4 +77,3 @@ poetry run alembic upgrade head
 cd /app
 poetry run fastapi dev main.py
 ```
-
