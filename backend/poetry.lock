@@ -58,7 +58,6 @@ files = [
 
 [package.dependencies]
 idna = ">=2.8"
-typing_extensions = {version = ">=4.5", markers = "python_version < \"3.13\""}
 
 [package.extras]
 trio = ["trio (>=0.32.0)"]
@@ -225,7 +224,6 @@ detect-installer = ">=0.1.0"
 fastar = ">=0.10.0"
 httpx = ">=0.27.0"
 pydantic = [
-    {version = ">=2.7.4", extras = ["email"], markers = "python_version < \"3.13\""},
     {version = ">=2.8.0", extras = ["email"], markers = "python_version == \"3.13\""},
     {version = ">=2.12.0", extras = ["email"], markers = "python_version >= \"3.14\""},
 ]
@@ -802,7 +800,6 @@ files = [
 
 [package.dependencies]
 psycopg-binary = {version = "3.3.4", optional = true, markers = "implementation_name != \"pypy\" and extra == \"binary\""}
-typing-extensions = {version = ">=4.6", markers = "python_version < \"3.13\""}
 tzdata = {version = "*", markers = "sys_platform == \"win32\""}
 
 [package.extras]
@@ -1702,7 +1699,6 @@ files = [
 
 [package.dependencies]
 anyio = ">=3.6.2,<5"
-typing-extensions = {version = ">=4.10.0", markers = "python_version < \"3.13\""}
 
 [package.extras]
 full = ["httpx (>=0.27.0,<0.29.0)", "httpx2 (>=2.0.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.18)", "pyyaml"]
@@ -2113,5 +2109,5 @@ files = [
 
 [metadata]
 lock-version = "2.1"
-python-versions = ">=3.12,<3.15"
-content-hash = "796f00b10aebd07268ede9181224a225e4908e88f6360ea816e02a388faf65f1"
+python-versions = ">=3.13"
+content-hash = "39909ead7f1ef0a163d4224c104148be144dff4d1298309539e2382466a81913"
