@@ -1,15 +1,80 @@
-# Cria o ambiente virtual e instala as dependências do pyproject.toml
+## 🚀 Instalação e Execução
+
+### 1. Instalar as dependências
+
+O projeto utiliza **Poetry** para gerenciamento de dependências e ambiente virtual.
+
+```bash
 poetry install
+```
 
-# Ativa o ambiente virtual
+### 2. Ativar o ambiente virtual
+
+```bash
 poetry shell
+```
 
-# Configurar .env
+> 💡 Alternativamente, você pode executar comandos diretamente no ambiente virtual usando `poetry run`.
+
+### 3. Configurar as variáveis de ambiente
+
+Crie o arquivo `.env` a partir do exemplo fornecido:
+
+```bash
 cp .env.example .env
+```
 
-# Rodar as migrações até a versão mais recente
+Depois, ajuste as variáveis de ambiente conforme necessário.
+
+### 4. Executar as migrações
+
+Aplique todas as migrações do banco de dados até a versão mais recente:
+
+```bash
+poetry run alembic upgrade head
+```
+
+### 5. Iniciar o servidor
+
+Entre no diretório da aplicação:
+
+```bash
+cd /app
+```
+
+Inicie o servidor de desenvolvimento do **FastAPI**:
+
+```bash
+poetry run fastapi dev main.py
+```
+
+O servidor ficará disponível no endereço indicado pelo FastAPI.
+
+### 📚 Documentação da API
+
+Após iniciar o servidor, a documentação interativa da API pode ser acessada pelo **Swagger UI** em:
+
+```text
+/docs
+```
+
+E a documentação **ReDoc** em:
+
+```text
+/redoc
+```
+
+### ⚡ Resumo
+
+Se o ambiente já estiver configurado, o fluxo básico é:
+
+```bash
+poetry install
+poetry shell
+cp .env.example .env
 poetry run alembic upgrade head
 
-#rodar docs do fastapi
 cd /app
 poetry run fastapi dev main.py
+```
+
