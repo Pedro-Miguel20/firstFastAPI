@@ -1,11 +1,10 @@
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 class TodoCreate(BaseModel):
-    title: str
-    description: str | None = None
+    title: str = Field(max_length=40)
+    description: str | None = Field(max_length=200)
     due_datetime: datetime
-    completed_at: datetime
     done: bool = False
 
 class TodoResponse(BaseModel):
