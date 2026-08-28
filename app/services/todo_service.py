@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from app.db.schema import Todo
-from app.models.todo import TodoCreate
+from app.models.todo import TodoCreate, TodoDelete
 
 class TodoService():
     def __init__ (self, session: Session):
@@ -20,3 +20,12 @@ class TodoService():
         self.session.commit()
         self.session.refresh(todo_data)
         return todo_data
+
+    def delete_todo(self, todo_id: int) -> Todo:
+        todo = self.session.query(Todo).filter(Todo.id == todo_id).first()
+
+        if todo:
+            todo.active = not todo.active
+            self.session.commit()
+            self.session.refresh(todo)
+        return todo

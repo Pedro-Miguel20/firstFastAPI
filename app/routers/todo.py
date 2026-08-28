@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from app.db.schema import SessionLocal
-from app.models.todo import TodoCreate, TodoResponse
+from app.models.todo import TodoCreate, TodoResponse, TodoDelete
 from app.services.todo_service import TodoService
 
 
@@ -26,3 +26,7 @@ def get_todo(todo_id: int, service: TodoService = Depends(get_todo_service)):
 @router.post("/todos", response_model=TodoCreate)
 def create_todo(todo: TodoCreate, service: TodoService = Depends(get_todo_service)):
     return service.create_todo(todo)
+
+@router.delete("/todos/{todo_id}", response_model=TodoDelete)
+def delete_todo(todo_id: int, service: TodoService = Depends(get_todo_service)):
+    return service.delete_todo(todo_id)
