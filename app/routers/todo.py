@@ -23,6 +23,6 @@ def get_todos(service: TodoService = Depends(get_todo_service)):
 def get_todo(todo_id: int, service: TodoService = Depends(get_todo_service)):
     return service.get_todo(todo_id)
 
-@router.post("/create", response_model=TodoCreate)
+@router.post("/todos", response_model=TodoCreate)
 def create_todo(todo: TodoCreate, service: TodoService = Depends(get_todo_service)):
     return service.create_todo(todo)
