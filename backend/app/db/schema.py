@@ -1,9 +1,6 @@
 from sqlalchemy import Column, DateTime, Integer, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
 from app.db.database import engine
-
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 metadata = Base.metadata
