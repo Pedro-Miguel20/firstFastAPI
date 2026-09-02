@@ -8,7 +8,7 @@ class TodoCreate(BaseModel):
     description: str | None = Field(
         max_length=200
     )
-    due_datetime: datetime = FutureDatetime
+    due_datetime: datetime
     done: bool = False
 
 class TodoResponse(BaseModel):

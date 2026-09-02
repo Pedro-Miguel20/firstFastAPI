@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
-from app.db.database import AsyncSessionLocal
-from app.models.todo import TodoCreate, TodoResponse, TodoDelete
-from app.services.todo_service import TodoService
+from db.database import AsyncSessionLocal
+from models.todo import TodoCreate, TodoResponse, TodoDelete
+from services.todo_service import TodoService
 
 
 router = APIRouter()
@@ -21,11 +21,11 @@ async def get_todos(service: TodoService = Depends(get_todo_service)):
 
 @router.get("/todos/{todo_id}", response_model=TodoResponse)
 async def get_todo(todo_id: int, service: TodoService = Depends(get_todo_service)):
-    return service.get_todo(todo_id)
+    return await service.get_todo(todo_id)
 
 @router.post("/todos", response_model=TodoCreate)
 async def create_todo(todo: TodoCreate, service: TodoService = Depends(get_todo_service)):
-    return service.create_todo(todo)
+    return await service.create_todo(todo)
 
 @router.delete("/todos/{todo_id}", response_model=TodoDelete)
 async def delete_todo(todo_id: int, service: TodoService = Depends(get_todo_service)):
