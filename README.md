@@ -77,3 +77,22 @@ poetry run alembic upgrade head
 cd /app
 poetry run fastapi dev main.py
 ```
+
+### Rodar Locust
+```bash
+cd /app
+cd poetry run locust -f tests/locustfile.py
+```
+Depois basta apertar enter
+
+### Rodar Locust na command line
+
+```bash
+poetry run locust -f locustfile.py \
+  --host=http://ipserviço:port \
+  --headless \
+  -u 3000 \ # Numero de cliente virtuais
+  -r 5 \ # numero de acesso por segundo de clientes
+  --run-time 2m \ # duração do teste
+  --csv=locust_report #arquivo de feedback
+```
