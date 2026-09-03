@@ -23,10 +23,10 @@ async def get_todos(service: TodoService = Depends(get_todo_service)):
 async def get_todo(todo_id: int, service: TodoService = Depends(get_todo_service)):
     return await service.get_todo(todo_id)
 
-@router.post("/todos", response_model=TodoCreate)
+@router.post("/todos", response_model=TodoResponse)
 async def create_todo(todo: TodoCreate, service: TodoService = Depends(get_todo_service)):
     return await service.create_todo(todo)
 
 @router.delete("/todos/{todo_id}", response_model=TodoDelete)
 async def delete_todo(todo_id: int, service: TodoService = Depends(get_todo_service)):
-    return service.delete_todo(todo_id)
+    return await service.delete_todo(todo_id)

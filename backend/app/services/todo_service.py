@@ -21,7 +21,7 @@ class TodoService():
                 
                 # 2. Executa a busca de forma assíncrona
         result = await self.session.execute(stmt)
-                
+
                 # 3. Retorna os objetos mapeados como uma lista
         return result.scalar_one_or_none()
 
@@ -33,11 +33,11 @@ class TodoService():
         await self.session.refresh(todo_data)
         return todo_data
 
-    def delete_todo(self, todo_id: int) -> Todo:
-        todo = self.session.query(Todo).filter(Todo.id == todo_id).first()
+    async def delete_todo(self, todo_id: int) -> Todo:
+        todo = await self.get_todo(todo_id)
 
         if todo:
             todo.active = not todo.active
-            self.session.commit()
-            self.session.refresh(todo)
+            await self.session.commit()
+            await self.session.refresh(todo)
         return todo

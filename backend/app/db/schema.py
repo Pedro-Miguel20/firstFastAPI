@@ -1,6 +1,5 @@
 from sqlalchemy import Column, DateTime, Integer, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
-from db.database import engine
 
 Base = declarative_base()
 metadata = Base.metadata
