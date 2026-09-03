@@ -1,5 +1,5 @@
+from pydantic import BaseModel, ConfigDict, Field, FutureDatetime, AwareDatetime
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, FutureDatetime
 
 class TodoCreate(BaseModel):
     title: str = Field(
@@ -8,7 +8,7 @@ class TodoCreate(BaseModel):
     description: str | None = Field(
         max_length=200
     )
-    due_datetime: datetime = FutureDatetime
+    due_datetime: datetime
     done: bool = False
 
 class TodoResponse(BaseModel):
