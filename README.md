@@ -88,11 +88,6 @@ Depois basta apertar enter
 ### Rodar Locust na command line
 
 ```bash
-poetry run locust -f locustfile.py \
-  --host=http://ipserviço:port \
-  --headless \
-  -u 3000 \ # Numero de cliente virtuais
-  -r 5 \ # numero de acesso por segundo de clientes
-  --run-time 2m \ # duração do teste
-  --csv=locust_report #arquivo de feedback
+poetry run locust --headless --users 1000 --spawn-rate 10 --run-time 120s -H http://yourservice:port --csv=tests/locust_report/locustreport -f tests/locustfile.py
 ```
+
