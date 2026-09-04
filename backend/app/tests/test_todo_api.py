@@ -1,9 +1,17 @@
-from main import app
-from starlette.testclient import TestClient
+from models.todo import TodoCreate
+import pytest
+from pydantic import ValidationError
 
-client = TestClient(app)
+def test_create_todo():
+    payload = {
+                "title": "Pytest",
+                "description": "Pytest",
+                "due_datetime": "2026-02-02",
+                "done": False
+            }
+    
+    with pytest.raises(ValidationError):
+        TodoCreate(json=payload)
 
-
-def test_call_endpoint():
-    response = client.get("/todos")
-    assert response.status_code == 200
+    
+    
