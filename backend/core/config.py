@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     DB_PORT: str
     DB_NAME: str
 
-    model_config = SettingsConfigDict(env_file="../.env")
+    model_config = SettingsConfigDict(env_file=".env")
 
     @property
     def DATABASE_URL(self) -> str:
