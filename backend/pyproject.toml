@@ -18,10 +18,10 @@ dependencies = [
 
 [tool.poetry]
 package-mode = false
-packages = [{include = "app"}]
+packages = [{include = "backend"}]
 
 [tool.pytest.ini_options]
-pythonpath = ["app"]
+pythonpath = ["backend"]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

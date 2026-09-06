@@ -74,19 +74,15 @@ poetry shell
 cp .env.example .env
 poetry run alembic upgrade head
 
-cd /app
+cd /backend
 poetry run fastapi dev main.py
 ```
 
-### Rodar Locust
-```bash
-cd /app
-cd poetry run locust -f tests/locustfile.py
-```
-Depois basta apertar enter
-
 ### Rodar Locust na command line
 
+Antes de rodar configure o locust_example.conf -> locust.conf passando host e tags de preferência
+
 ```bash
-poetry run locust --headless --users 1000 --spawn-rate 10 --run-time 120s -H http://yourservice:port --csv=tests/locust_report/locustreport -f tests/locustfile.py
+cd .\backend\
+locust
 ```

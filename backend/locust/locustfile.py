@@ -1,13 +1,15 @@
 from locust import HttpUser, between, SequentialTaskSet, task, events
-from db.database import AsyncSessionLocal
-import asyncio
 from sqlalchemy import text
 from datetime import datetime, timezone,timedelta
 from itertools import count
+from core.config import settings
+
 
 counter = count(1)
 
+
 class todoWorkFlow(SequentialTaskSet):
+
     todo_id = None
     # 3. Tarefa contínua executada pelos usuários virtuais
 
@@ -44,32 +46,36 @@ class todoWorkFlow(SequentialTaskSet):
 
 
 class TodoTest(HttpUser):
+
+
     wait_time = between(1, 5)
     tasks = [todoWorkFlow]
 
+
+
+import psycopg2
+
+def clear_database():
+    database_url = settings.DATABASE_URL.replace(
+        "postgresql+asyncpg://",
+        "postgresql://"
+    )
+
+    with psycopg2.connect(database_url) as conn:
+        with conn.cursor() as cursor:
+
+            cursor.execute(
+                "TRUNCATE TABLE public.todo RESTART IDENTITY"
+            )
+
+        conn.commit()
+
+    print("[CLEANUP] Banco limpo!")
+
+
 @events.test_stop.add_listener
-def cleanup_database(environment, **kwargs):
-    print("\n[CLEANUP] Teste finalizado. Limpando dados remanescentes no banco...")
-    
-    # Exemplo: Se sua API tiver uma rota de expurgo/reset
-    async def run_cleanup():
-        async with AsyncSessionLocal() as session:
-            # 1. Executa o Hard Delete usando a instrução textual explícita
-            await session.execute(text("DELETE FROM public.todo;"))
-            
-            # 2. Faz o commit para efetivar a remoção física no Postgres
-            await session.commit()
-
+def on_test_stop(environment, **kwargs):
     try:
-        asyncio.run(run_cleanup())
-        print("[CLEANUP] Registros apagados fisicamente com sucesso!")
-        
+        clear_database()
     except Exception as e:
-        print(f"[CLEANUP] Erro ao limpar o banco: {e}")
-
-
-
-
-      
-
-    
+        print(f"[CLEANUP] ERRO: {e}")
