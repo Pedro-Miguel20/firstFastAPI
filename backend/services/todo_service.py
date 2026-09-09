@@ -7,7 +7,7 @@ class TodoService():
     def __init__ (self, session: AsyncSession):
         self.session = session    
 
-    async def list_todo(self) -> list[Todo]:
+    async def list_todo(self) -> list[Todo] | None:
         stmt = select(Todo)
         
         # 2. Executa a busca de forma assíncrona

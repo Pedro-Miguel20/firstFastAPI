@@ -1,10 +1,9 @@
 from services.todo_service import TodoService
-from models.todo import TodoCreate
+from models.todo import TodoCreate, TodoResponse
 import pytest
 from db.database import AsyncSessionLocal
 from pydantic import ValidationError
 from datetime import datetime, timezone, timedelta
-import asyncio
 
 def test_create_todo():
 
@@ -22,15 +21,14 @@ def test_create_todo():
 
     todo = TodoCreate(**payload)
 
+    @pytest.mark.asyncio
     async def run():
         async with AsyncSessionLocal() as session:
             service = TodoService(session=session)
 
-            return await service.create_todo(todo=todo)
-    
-    result = asyncio.run(run())
+            result = await service.create_todo(todo=todo, response_model=TodoResponse)
 
-    assert result.title == payload['title']
+            result.title == payload['title']
 
 def test_pydantic():
     
@@ -41,18 +39,24 @@ def test_pydantic():
                 "done":  False
     }
 
-    with pytest.raises(ValidationError):
-        print(ValidationError)
-        TodoCreate(**payload)
-
-def test_get_todo():
-    async def list():
+    @pytest.mark.asyncio
+    async def run():
         async with AsyncSessionLocal() as session:
             service = TodoService(session=session)
+            with pytest.raises(ValidationError):
+                await service.create_todo(todo=payload)
 
-            return await service.list_todo()
-    
-    asyncio.run(list())
+
+def test_list_todo():
+
+    @pytest.mark.asyncio
+    async def run():
+        async with AsyncSessionLocal() as session:
+            service = TodoService(session=session)
+                    
+            response = await service.list_todo()
+
+            assert len(response) >= 1
 
     
     
