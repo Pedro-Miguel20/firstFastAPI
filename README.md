@@ -78,6 +78,15 @@ cd /backend
 poetry run fastapi dev main.py
 ```
 
+### Rodar testes para serviços
+
+Isso garante que os serviços além dos endpoint's e a conexão com o banco funcionam
+
+```bash
+cd .\backend\
+poetry run pytest -v
+```
+
 ### Rodar Locust na command line
 
 Antes de rodar configure o locust_example.conf -> locust.conf passando host e tags de preferência
