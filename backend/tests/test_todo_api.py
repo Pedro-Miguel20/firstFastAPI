@@ -30,7 +30,7 @@ async def test_create_and_get_todo():
     data_obj = datetime.now(timezone.utc) + timedelta(days=1)
                     
                     # 2. Converte para o padrão ISO sem o sufixo +00:00
-    data_string = data_obj.replace(tzinfo=None).isoformat(timespec='seconds')
+    data_string = data_obj.replace(tzinfo=None)
     
     todo = TodoCreate(
         title="Pytest",
@@ -81,6 +81,19 @@ async def test_delete_todo():
         after = await service.delete_todo(todo_id=get.id)
 
         assert get.active != after.active
+        assert after.completed_at is None
 
-    
-    
+        await engine.dispose()
+
+        
+@pytest.mark.asyncio
+async def test_edit_todo():
+
+    async with AsyncSessionLocal() as session:
+        service = TodoService(session=session)
+
+        
+        after = await service.done_todo(todo_id=get.id)
+
+        assert get.done != after.done
+        assert after.completed_at is not None

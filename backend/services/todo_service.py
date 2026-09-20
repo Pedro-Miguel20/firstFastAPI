@@ -2,6 +2,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from db.schema import Todo
 from models.todo import TodoCreate
+from datetime import datetime, timezone, timedelta
 
 class TodoService():
     def __init__ (self, session: AsyncSession):
@@ -41,3 +42,15 @@ class TodoService():
             await self.session.commit()
             await self.session.refresh(todo)
         return todo
+
+    async def done_todo(self, todo_id: int) -> Todo:
+        todo = await self.get_todo(todo_id)
+
+        if todo:
+            todo.done = not todo.done
+            todo.completed_at = datetime.now(timezone.utc).replace(tzinfo=None)
+            await self.session.commit()
+            await self.session.refresh(todo)
+        return todo
+
+

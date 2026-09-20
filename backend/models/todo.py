@@ -25,3 +25,11 @@ class TodoResponse(BaseModel):
 class TodoDelete(BaseModel):
     id: int
     active: bool | None
+
+class TodoEdit(BaseModel):
+    id: int
+    title: str
+    description: str | None
+    due_datetime: datetime
+    completed_at: datetime | None
+    done: bool

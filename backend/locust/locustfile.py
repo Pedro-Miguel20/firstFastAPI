@@ -21,8 +21,7 @@ class todoWorkFlow(SequentialTaskSet):
 
         data_obj = datetime.now(timezone.utc) + timedelta(days=dia)
                 
-                # 2. Converte para o padrão ISO sem o sufixo +00:00
-        data_string = data_obj.replace(tzinfo=None).isoformat(timespec='seconds')
+        data_string = data_obj.replace(tzinfo=None)
 
         response = self.client.post("/todos", json={
             "title": f"teste",
@@ -43,6 +42,11 @@ class todoWorkFlow(SequentialTaskSet):
     def delete_todo(self):
         if self.todo_id:
             self.client.delete(f"/todos/{self.todo_id}", name="/todos/[delete_id]")
+
+    @task 
+    def delete_todo(self):
+        if self.todo_id:
+            self.client.put(f"/todos/{self.todo_id}", name="/todos/[put_id]")
 
 
 class TodoTest(HttpUser):
